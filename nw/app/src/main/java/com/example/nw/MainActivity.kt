@@ -25,49 +25,7 @@ class MainActivity : AppCompatActivity() {
         ) {}
     }
 
-    override fun onBlueDotPositionUpdate(update: MPIBlueDotPositionUpdate) {
-        // Called when the blueDot that tracks the user position is updated
-    }
 
-    override fun onBlueDotStateChange(stateChange: MPIBlueDotStateChange) {
-        // Called when the state of blueDot is changed
-    }
-
-    override fun onMapChanged(map: MPIMap) {
-        // Called when the map is changed
-    }
-
-    override fun onPolygonClicked(polygon: MPIPolygon) {
-        // Called when the polygon is clicked
-    }
-
-    override fun onNothingClicked() {
-        // Called when a tap doesn't hit any spaces
-    }
-
-    override fun onDataLoaded(data: MPIData) {
-        // Called when the mapView has finished loading both the view and venue data
-    }
-
-    override fun onFirstMapLoaded() {
-        // Called when the first map is fully loaded
-    }
-
-    override fun onStateChanged(state: MPIState) {
-        // Called when the state of the map has changed
-    }
-
-
-    override fun onFirstMapLoaded() {
-        val departure = mapView.venueData?.locations?.first { it.name == "Pet World" }!!
-        val destination = mapView.venueData?.locations?.first { it.name == "Microsoft" }!!
-
-        mapView.getDirections(to = destination, from = departure) {
-            if (it != null) {
-                mapView.journeyManager.draw(directions = it)
-            }
-        }
-    }
 
 
 
