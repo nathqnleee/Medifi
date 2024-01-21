@@ -15,9 +15,9 @@ import "./styles.css";
 export default function InteractivityExample() {
   const credentials = useMemo<TGetVenueMakerOptions>(
     () => ({
-      mapId: "657cc670040fcba69696e69e",
-      key: "65a0422df128bbf7c7072349",
-      secret: "5f72653eba818842c16c4fdb9c874ae02100ffced413f638b7bd9c65fd5b92a4"
+      mapId: "65ab7a47ca641a9a1399dbf7",
+      key: "65ac73bb04c23e7916b1d0ea",
+      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2"
     }),
     []
   );
@@ -34,7 +34,7 @@ export default function InteractivityExample() {
     // Set hover colour for polygons
     venue.locations.forEach((location) => {
       // An obstruction is something like a desk
-      if (location.id.includes("obstruction")) {
+      if (location.id.includes("ICU")) {
         location.polygons.forEach((polygon) => {
           mapView.setPolygonHoverColor(polygon, "#BFBFBF");
         });
