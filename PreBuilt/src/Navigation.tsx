@@ -21,6 +21,7 @@ export default function NavigationExample() {
   );
   const venue = useVenueMaker(credentials);
 
+
   const mapOptions = useMemo<TMapViewOptions>(
     () => ({
       xRayPath: true,
@@ -34,16 +35,19 @@ export default function NavigationExample() {
     if (!mapView || !venue) {
       return;
     }
-    
-    // Check if the clicked location has the desired name
-    if (clickedLocationName === "ICU Beds 20 - 27") {
-      const startLocation = venue.locations.find(
-        (location) => location.name === "Doctor 5"
-      );
 
-      const endLocation = venue.locations.find(
-        (location) => location.name === "ICU Beds 20 - 27"
-      );
+    /*
+     * All maps made in Maker will contain a location called "footprintcomponent"
+     * which represents the exterior "footprint"
+     * You can use this location to get the nearest entrance or exit
+     */
+    const startLocation = venue.locations.find((location) =>
+      location.id.includes("footprintcomponent")
+    );
+    // Navigate to some location on another floor
+    const endLocation = venue.locations.find((location) =>
+      location.id.includes("delly")
+    );
 
       if (startLocation && endLocation) {
         const directions = startLocation.directionsTo(endLocation);
@@ -99,14 +103,14 @@ export default function NavigationExample() {
   return (
     <div id="app">
       <div id="ui">
-        {venue &&
-          selectedMap && (
-            <select
-              value={selectedMap.id}
-              onChange={(e) => {
-                if (!mapView || !venue) {
-                  return;
-                }
+        {venue?.venue.name ?? "Loading..."}
+        {venue && selectedMap && (
+          <select
+            value={selectedMap.id}
+            onChange={(e) => {
+              if (!mapView || !venue) {
+                return;
+              }
 
                 const floor = venue.maps.find((map) => map.id === e.target.value);
                 if (floor) {
