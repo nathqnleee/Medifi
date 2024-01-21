@@ -2,11 +2,13 @@ import {
   TGetVenueMakerOptions,
   MARKER_ANCHOR,
   COLLISION_RANKING_TIERS,
+  MappedinMap,
   TMapViewOptions
 } from "@mappedin/mappedin-js";
 import "@mappedin/mappedin-js/lib/mappedin.css";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState} from "react";
 import useMapClick from "./hooks/useMapClick";
+import useMapChanged from "./hooks/useMapChanged";
 import useMapView from "./hooks/useMapView";
 import useVenueMaker from "./hooks/useVenueMaker";
 import "./styles.css";
@@ -17,30 +19,38 @@ export default function InteractivityExample() {
     () => ({
       mapId: "65ab7a47ca641a9a1399dbf7",
       key: "65ac73bb04c23e7916b1d0ea",
-      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2"
+      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2",
+
     }),
     []
   );
   const venue = useVenueMaker(credentials);
-  const { elementRef, mapView } = useMapView(venue);
+  const mapOptions = useMemo<TMapViewOptions>(
+    () => ({
+      backgroundColor: "#CFCFCF" // Background colour behind the map
+    }),
+    []
+  );
+  const { elementRef, mapView } = useMapView(venue, mapOptions);
 
   useEffect(() => {
     if (!mapView || !venue) {
       return;
     }
 
+    
     // Enable interactivity for polygons (spaces, desks)
     mapView.addInteractivePolygonsForAllLocations();
     // Set hover colour for polygons
     venue.locations.forEach((location) => {
       // An obstruction is something like a desk
-      if (location.id.includes("obstruction")) {
+      if (location.name === "ICU Beds 1-7" || location.name === "ICU Beds 20 - 27") {
         location.polygons.forEach((polygon) => {
-          mapView.setPolygonHoverColor(polygon, "#BFBFBF");
+          mapView.setPolygonHoverColor(polygon, "#FF0000");
         });
       } else {
         location.polygons.forEach((polygon) => {
-          mapView.setPolygonHoverColor(polygon, "#F0F0F0");
+          mapView.setPolygonHoverColor(polygon, "#BFBFBF");
         });
       }
     });
@@ -69,45 +79,240 @@ export default function InteractivityExample() {
     }
 
     // Interact with clicked Floating Labels
-    for (const label of props.floatingLabels) {
-      console.log(`[useMapClick] Clicked label "${label.text}"`);
+    // for (const label of props.floatingLabels) {
+    //   console.log(`[useMapClick] Clicked label "${label.text}"`);
 
-      if (label.node) {
-        mapView.FloatingLabels.remove(label.node);
-      }
-      return;
-    }
+    //   if (label.node) {
+    //     mapView.FloatingLabels.remove(label.node);
+    //   }
+    //   return;
+    // }
 
     // Interact with clicked polygons
     for (const polygon of props.polygons) {
       console.log(`[useMapClick] Clicked polygon ID "${polygon.id}"`);
 
-      // Get location details for the clicked polygon
-      const location = mapView.getPrimaryLocationForPolygon(polygon);
+  // Get location details for the clicked polygon
+  const location = mapView.getPrimaryLocationForPolygon(polygon);
 
-      // Convert the click information to a coordinate on the map
-      const clickedCoordinate = mapView.currentMap.createCoordinate(
-        props.position.latitude,
-        props.position.longitude
-      );
+  // Convert the click information to a coordinate on the map
+  const clickedCoordinate = mapView.currentMap.createCoordinate(
+    props.position.latitude,
+    props.position.longitude
+  );
+
+  // Check if the clicked location has the desired name
+  if (location && location.name === "ICU Beds 20 - 27") {
+    const startLocation = venue.locations.find(
+      (location) => location.name === "Doctor 5"
+    );
+
+    const endLocation = venue.locations.find(
+      (location) => location.name === "ICU Beds 20 - 27"
+    );
+
+    if (startLocation && endLocation) {
+      const directions = startLocation.directionsTo(endLocation);
+
+      if (directions && directions.path.length > 0) {
+        mapView.Journey.draw(directions, {
+          departureMarkerTemplate: (props) => {
+            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="departure-marker">${
+                props.location ? props.location.name : "Departure"
+              }</div>
+              ${props.icon}
+            </div>`;
+          },
+          destinationMarkerTemplate: (props) => {
+            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="destination-marker">${
+                props.location ? props.location.name : "Destination"
+              }</div>
+              ${props.icon}
+            </div>`;
+          },
+          connectionTemplate: (props) => {
+            return `<div class="connection-marker">Take ${props.type} ${props.icon}</div>`;
+          },
+          pathOptions: {
+            nearRadius: 0.25,
+            farRadius: 1,
+            color: "#40A9FF",
+            displayArrowsOnPath: false,
+            showPulse: true,
+            pulseIterations: Infinity
+          }
+        });
+
+        mapView.setMap(directions.path[0].map);
+      }
+    }
+
+
+    // Update the selected map state
+    //setSelectedMap(mapView.currentMap);
+  } 
+  if (location && location.name === "Laurener Room") {
+    const startLocation = venue.locations.find(
+      (location) => location.name === "Doctor 2"
+    );
+
+    const endLocation = venue.locations.find(
+      (location) => location.name === "Laurener Room"
+    );
+
+    if (startLocation && endLocation) {
+      const directions = startLocation.directionsTo(endLocation);
+
+      if (directions && directions.path.length >= 0) {
+        mapView.Journey.draw(directions, {
+          departureMarkerTemplate: (props) => {
+            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="departure-marker">${
+                props.location ? props.location.name : "Departure"
+              }</div>
+              ${props.icon}
+            </div>`;
+          },
+          destinationMarkerTemplate: (props) => {
+            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="destination-marker">${
+                props.location ? props.location.name : "Destination"
+              }</div>
+              ${props.icon}
+            </div>`;
+          },
+          connectionTemplate: (props) => {
+            return `<div class="connection-marker">Take ${props.type} ${props.icon}</div>`;
+          },
+          pathOptions: {
+            nearRadius: 0.25,
+            farRadius: 1,
+            color: "#40A9FF",
+            displayArrowsOnPath: false,
+            showPulse: true,
+            pulseIterations: Infinity
+          }
+        });
+
+        mapView.setMap(directions.path[0].map);
+      }
+    }
+
+    // Update the selected map state
+    //setSelectedMap(mapView.currentMap);
+  }
+  if (location && location.name === "ICU Beds 1-7") {
+    const startLocation = venue.locations.find(
+      (location) => location.name === "Doctor 3"
+    );
+
+    const endLocation = venue.locations.find(
+      (location) => location.name === "ICU Beds 1-7"
+    );
+
+    if (startLocation && endLocation) {
+      
+      const directions = startLocation.directionsTo(endLocation);
+
+      if (directions && directions.path.length > 0) {
+
+        
+        console.log(`Distance: ${directions.distance} meters`);
+        
+        mapView.Journey.draw(directions, {
+          departureMarkerTemplate: (props) => {
+            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="departure-marker">${
+                props.location ? props.location.name : "Departure"
+              }</div>
+              ${props.icon}
+            </div>`;
+          },
+          destinationMarkerTemplate: (props) => {
+            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="destination-marker">${
+                props.location ? props.location.name : "Destination"
+              }</div>
+              ${props.icon}
+            </div>`;
+          },
+          connectionTemplate: (props) => {
+            return `<div class="connection-marker">Take ${props.type} ${props.icon}</div>`;
+          },
+          pathOptions: {
+            nearRadius: 0.25,
+            farRadius: 1,
+            color: "#40A9FF",
+            displayArrowsOnPath: false,
+            showPulse: true,
+            pulseIterations: Infinity
+          }
+        });
+
+        mapView.setMap(directions.path[0].map);
+      }
+    }
+
+    // Update the selected map state
+    //setSelectedMap(mapView.currentMap);
+  }
+
+      
 
       // And add a new Marker where we clicked
-      mapView.Markers.add(
-        clickedCoordinate,
-        // Provide a HTML template string for the Marker appearance
-        `<div class="marker">${location.name}</div>`,
-        {
-          interactive: true, // Make markers clickable
-          rank: COLLISION_RANKING_TIERS.ALWAYS_VISIBLE, // Marker collision priority
-          anchor: MARKER_ANCHOR.TOP // Position of the Marker
-        }
-      );
+      // mapView.Markers.add(
+      //   clickedCoordinate,
+      //   // Provide a HTML template string for the Marker appearance
+      //   `<div class="marker">${location.name}</div>`,
+      //   {
+      //     interactive: true, // Make markers clickable
+      //     rank: COLLISION_RANKING_TIERS.ALWAYS_VISIBLE, // Marker collision priority
+      //     anchor: MARKER_ANCHOR.TOP // Position of the Marker
+      //   }
+      // );
       return;
     }
   });
 
+  
+  const [selectedMap, setSelectedMap] = useState<MappedinMap | undefined>();
+
+  useMapChanged(mapView, (map) => {
+    setSelectedMap(map);
+  });
+
   return (
     <div id="app">
+      <div id="ui">
+        {/* Render some map details to the UI */}
+        {venue?.venue.name ?? "Loading..."}
+        {venue && (
+          <select
+            onChange={(e) => {
+              if (!mapView || !venue) {
+                return;
+              }
+
+              // When the floor select changes we can find and set the map to that ID
+              // const floor = venue.maps.find((map) => map.id === e.target.value);
+              // if (floor) {
+              //   mapView.setMap(floor);
+              // }
+            }}
+          >
+            {/* The venue "maps" represent each floor */}
+            {venue?.maps.map((level, index) => {
+              return (
+                <option value={level.id} key={index}>
+                  {level.name}
+                </option>
+              );
+            })}
+          </select>
+        )}
+      </div>
       <div id="map-container" ref={elementRef}></div>
     </div>
   );

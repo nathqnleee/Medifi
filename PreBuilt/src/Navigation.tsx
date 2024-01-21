@@ -21,6 +21,7 @@ export default function NavigationExample() {
   );
   const venue = useVenueMaker(credentials);
 
+
   const mapOptions = useMemo<TMapViewOptions>(
     () => ({
       xRayPath: true,
@@ -34,7 +35,29 @@ export default function NavigationExample() {
     if (!mapView || !venue) {
       return;
     }
-    
+
+    /////
+// Enable interactivity for polygons (spaces, desks)
+mapView.addInteractivePolygonsForAllLocations();
+// Set hover colour for polygons
+venue.locations.forEach((location) => {
+  // An obstruction is something like a desk
+  if (location.name === "Doctor") {
+    location.polygons.forEach((polygon) => {
+      mapView.setPolygonHoverColor(polygon, "#F0F0F0");
+    });
+  } else {
+    location.polygons.forEach((polygon) => {
+      mapView.setPolygonHoverColor(polygon, "#BFBFBF");
+    });
+  }
+});
+
+mapView.FloatingLabels.labelAllLocations({
+  interactive: true // Make labels interactive
+});
+    /////
+
     // Check if the clicked location has the desired name
     if (clickedLocationName === "ICU Beds 20 - 27") {
       const startLocation = venue.locations.find(
@@ -99,6 +122,7 @@ export default function NavigationExample() {
   return (
     <div id="app">
       <div id="ui">
+        {venue?.venue.name ?? "Loading..."}
         {venue &&
           selectedMap && (
             <select

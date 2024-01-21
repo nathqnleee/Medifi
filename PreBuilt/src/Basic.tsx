@@ -19,9 +19,9 @@ export default function BasicExample() {
    */
   const credentials = useMemo<TGetVenueMakerOptions>(
     () => ({
-      mapId: "659efcf1040fcba69696e7b6",
-      key: "65a0422df128bbf7c7072349",
-      secret: "5f72653eba818842c16c4fdb9c874ae02100ffced413f638b7bd9c65fd5b92a4"
+      mapId: "65ab7a47ca641a9a1399dbf7",
+      key: "65ac73bb04c23e7916b1d0ea",
+      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2"
     }),
     []
   );
