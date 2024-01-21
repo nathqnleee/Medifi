@@ -11,10 +11,17 @@ import useMapClick from "./hooks/useMapClick";
 import useMapChanged from "./hooks/useMapChanged";
 import useMapView from "./hooks/useMapView";
 import useVenueMaker from "./hooks/useVenueMaker";
+import SlideButton from "./ClientButton"; // Adjust the import path
+
 import "./styles.css";
 
 /* This demo shows you how to add interactive elements to the map. */
 export default function InteractivityExample() {
+  const [image1Version, setImage1Version] = useState(1);
+  const [image2Version, setImage2Version] = useState(1);
+  const [image3Version, setImage3Version] = useState(1);
+
+
   const credentials = useMemo<TGetVenueMakerOptions>(
     () => ({
       mapId: "65ab7a47ca641a9a1399dbf7",
@@ -103,6 +110,10 @@ export default function InteractivityExample() {
 
   // Check if the clicked location has the desired name
   if (location && location.name === "ICU Beds 20 - 27") {
+
+    setImage1Version(2); // Set the version to 2 when condition is met
+
+
     const startLocation = venue.locations.find(
       (location) => location.name === "Doctor 5"
     );
@@ -157,6 +168,8 @@ export default function InteractivityExample() {
     const startLocation = venue.locations.find(
       (location) => location.name === "Doctor 2"
     );
+    setImage3Version(2);
+
 
     const endLocation = venue.locations.find(
       (location) => location.name === "Laurener Room"
@@ -207,6 +220,8 @@ export default function InteractivityExample() {
     const startLocation = venue.locations.find(
       (location) => location.name === "Doctor 3"
     );
+    setImage2Version(2);
+
 
     const endLocation = venue.locations.find(
       (location) => location.name === "ICU Beds 1-7"
@@ -312,6 +327,14 @@ export default function InteractivityExample() {
             })}
           </select>
         )}
+      </div>
+      <div>
+        {/* Pass all image versions to SlideButton */}
+        <SlideButton
+          image1Version={image1Version}
+          image2Version={image2Version}
+          image3Version={image3Version}
+        />
       </div>
       <div id="map-container" ref={elementRef}></div>
     </div>
