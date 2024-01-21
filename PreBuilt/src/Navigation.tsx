@@ -44,11 +44,11 @@ venue.locations.forEach((location) => {
   // An obstruction is something like a desk
   if (location.name === "Doctor") {
     location.polygons.forEach((polygon) => {
-      mapView.setPolygonHoverColor(polygon, "#F0F0F0");
+      mapView.setPolygonColor(polygon, "#F0F0F0");
     });
   } else {
     location.polygons.forEach((polygon) => {
-      mapView.setPolygonHoverColor(polygon, "#BFBFBF");
+      mapView.setPolygonColor(polygon, "#BFBFBF");
     });
   }
 });

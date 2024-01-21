@@ -99,7 +99,7 @@ export default function InteractivityExample() {
     const startLocation = venue.locations.find(
       (location) => location.name === "Doctor 5"
     );
-
+      
     const endLocation = venue.locations.find(
       (location) => location.name === "ICU Beds 20 - 27"
     );
@@ -139,10 +139,14 @@ export default function InteractivityExample() {
         });
 
         mapView.setMap(directions.path[0].map);
+
+        setTimeout(() => {
+          mapView.Journey.clear(); // Clear the path
+        }, 4000);
       }
     }
 
-
+    setSelectedMap(mapView.currentMap);
     // Update the selected map state
     //setSelectedMap(mapView.currentMap);
   } 
