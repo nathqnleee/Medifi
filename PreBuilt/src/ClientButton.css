@@ -1,20 +1,11 @@
-.slider-container {
+.slide-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
-  max-height: 200px; /* Set the default height */
 }
 
-.img {
-  width: 100px; /* Adjust the image width as needed */
-  height: 100px; /* Adjust the image height as needed */
-  margin: 10px;
-}
-
-.slider-container img {
-  width: auto;
-  height: auto;
-  margin: 0; /* Reset margin if needed */
+.slide-button-container img {
+  max-width: 40%;
+  max-height: 80%; /* Adjust the image height as needed */
+  margin: 5px; /* Adjust the margin as needed to create space between images */
 }

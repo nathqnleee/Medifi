@@ -99,7 +99,6 @@ export default function NavigationExample() {
   return (
     <div id="app">
       <div id="ui">
-        {venue?.venue.name ?? "Loading..."}
         {venue &&
           selectedMap && (
             <select

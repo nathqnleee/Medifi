@@ -51,8 +51,6 @@ export default function BasicExample() {
   return (
     <div id="app">
       <div id="ui">
-        {/* Render some map details to the UI */}
-        {venue?.venue.name ?? "Loading..."}
         {venue && (
           <select
             onChange={(e) => {
