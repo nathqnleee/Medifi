@@ -66,7 +66,7 @@ export default function App() {
           {/* Button centered at the bottom */}
           <div className="bottom-button">
           <h2>PATIENTS</h2>
-            <ClientButton />
+            <ClientButton image1Version={undefined} image2Version={undefined} image3Version={undefined} />
           </div>
 
           
