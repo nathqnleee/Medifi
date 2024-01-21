@@ -20,7 +20,6 @@ export default function App() {
           {/* Links centered on top */}
           <div className="top-links">
             <Link to="/" className="nav-button">Basic</Link>
-            <Link to="/interactivity" className="nav-button">Interactivity</Link>
             <Link to="/navigation" className="nav-button">Navigation</Link>
             <Link to="/camera" className="nav-button">Camera</Link>
           </div>

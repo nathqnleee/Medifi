@@ -19,12 +19,19 @@ export default function InteractivityExample() {
     () => ({
       mapId: "65ab7a47ca641a9a1399dbf7",
       key: "65ac73bb04c23e7916b1d0ea",
-      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2"
+      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2",
+
     }),
     []
   );
   const venue = useVenueMaker(credentials);
-  const { elementRef, mapView } = useMapView(venue);
+  const mapOptions = useMemo<TMapViewOptions>(
+    () => ({
+      backgroundColor: "#CFCFCF" // Background colour behind the map
+    }),
+    []
+  );
+  const { elementRef, mapView } = useMapView(venue, mapOptions);
 
   useEffect(() => {
     if (!mapView || !venue) {
@@ -289,10 +296,10 @@ export default function InteractivityExample() {
               }
 
               // When the floor select changes we can find and set the map to that ID
-              const floor = venue.maps.find((map) => map.id === e.target.value);
-              if (floor) {
-                mapView.setMap(floor);
-              }
+              // const floor = venue.maps.find((map) => map.id === e.target.value);
+              // if (floor) {
+              //   mapView.setMap(floor);
+              // }
             }}
           >
             {/* The venue "maps" represent each floor */}

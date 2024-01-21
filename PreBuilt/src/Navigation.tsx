@@ -31,23 +31,51 @@
 //   );
 //   const { elementRef, mapView } = useMapView(venue, mapOptions);
 
-//   const handleLocationClick = (clickedLocationName: string) => {
-//     if (!mapView || !venue) {
-//       return;
-//     }
+  const handleLocationClick = (clickedLocationName: string) => {
+    if (!mapView || !venue) {
+      return;
+    }
+    
+    // Check if the clicked location has the desired name
+    if (clickedLocationName === "ICU Beds 20 - 27") {
+      const startLocation = venue.locations.find(
+        (location) => location.name === "Doctor 5"
+      );
 
-//     /*
-//      * All maps made in Maker will contain a location called "footprintcomponent"
-//      * which represents the exterior "footprint"
-//      * You can use this location to get the nearest entrance or exit
-//      */
-//     const startLocation = venue.locations.find((location) =>
-//       location.id.includes("footprintcomponent")
-//     );
-//     // Navigate to some location on another floor
-//     const endLocation = venue.locations.find((location) =>
-//       location.id.includes("delly")
-//     );
+<<<<<<<<< Temporary merge branch 1
+    /////
+// Enable interactivity for polygons (spaces, desks)
+mapView.addInteractivePolygonsForAllLocations();
+// Set hover colour for polygons
+venue.locations.forEach((location) => {
+  // An obstruction is something like a desk
+  if (location.name === "Doctor") {
+    location.polygons.forEach((polygon) => {
+      mapView.setPolygonHoverColor(polygon, "#F0F0F0");
+    });
+  } else {
+    location.polygons.forEach((polygon) => {
+      mapView.setPolygonHoverColor(polygon, "#BFBFBF");
+    });
+  }
+});
+
+mapView.FloatingLabels.labelAllLocations({
+  interactive: true // Make labels interactive
+});
+    /////
+
+    // Check if the clicked location has the desired name
+    if (clickedLocationName === "ICU Beds 20 - 27") {
+      const startLocation = venue.locations.find(
+        (location) => location.name === "Doctor 5"
+      );
+
+=========
+>>>>>>>>> Temporary merge branch 2
+      const endLocation = venue.locations.find(
+        (location) => location.name === "ICU Beds 20 - 27"
+      );
 
 //       if (startLocation && endLocation) {
 //         const directions = startLocation.directionsTo(endLocation);
@@ -100,17 +128,21 @@
 //     setSelectedMap(map);
 //   });
 
-//   return (
-//     <div id="app">
-//       <div id="ui">
-//         {venue?.venue.name ?? "Loading..."}
-//         {venue && selectedMap && (
-//           <select
-//             value={selectedMap.id}
-//             onChange={(e) => {
-//               if (!mapView || !venue) {
-//                 return;
-//               }
+  return (
+    <div id="app">
+      <div id="ui">
+<<<<<<<<< Temporary merge branch 1
+        {venue?.venue.name ?? "Loading..."}
+=========
+>>>>>>>>> Temporary merge branch 2
+        {venue &&
+          selectedMap && (
+            <select
+              value={selectedMap.id}
+              onChange={(e) => {
+                if (!mapView || !venue) {
+                  return;
+                }
 
 //                 const floor = venue.maps.find((map) => map.id === e.target.value);
 //                 if (floor) {
