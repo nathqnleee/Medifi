@@ -10,97 +10,111 @@ import useMapView from "./hooks/useMapView";
 import useVenueMaker from "./hooks/useVenueMaker";
 import "./styles.css";
 
-/* This demo shows you how to draw a path between two locations. */
 export default function NavigationExample() {
   const credentials = useMemo<TGetVenueMakerOptions>(
     () => ({
-      mapId: "659efcf1040fcba69696e7b6",
-      key: "65a0422df128bbf7c7072349",
-      secret: "5f72653eba818842c16c4fdb9c874ae02100ffced413f638b7bd9c65fd5b92a4"
+      mapId: "65ab7a47ca641a9a1399dbf7",
+      key: "65ac73bb04c23e7916b1d0ea",
+      secret: "553457a54e0d18a40711dcab8ece3fc65dabe23cabbfd32a2fed06e0fc7e87b2"
     }),
     []
   );
   const venue = useVenueMaker(credentials);
 
+
   const mapOptions = useMemo<TMapViewOptions>(
     () => ({
-      xRayPath: true, // X Ray enables seeing the path through walls
-      multiBufferRendering: true // Multi buffer rendering is necessary for features like x ray
+      xRayPath: true,
+      multiBufferRendering: true
     }),
     []
   );
   const { elementRef, mapView } = useMapView(venue, mapOptions);
 
-  /* Start navigation when the map loads */
-  useEffect(() => {
+  const handleLocationClick = (clickedLocationName: string) => {
     if (!mapView || !venue) {
       return;
     }
 
-    /*
-     * All maps made in Maker will contain a location called "footprintcomponent"
-     * which represents the exterior "footprint"
-     * You can use this location to get the nearest entrance or exit
-     */
-    const startLocation = venue.locations.find((location) =>
-      location.id.includes("footprintcomponent")
-    );
-    // Navigate to some location on another floor
-    const endLocation = venue.locations.find((location) =>
-      location.id.includes("delly")
-    );
+    /////
+// Enable interactivity for polygons (spaces, desks)
+mapView.addInteractivePolygonsForAllLocations();
+// Set hover colour for polygons
+venue.locations.forEach((location) => {
+  // An obstruction is something like a desk
+  if (location.name === "Doctor") {
+    location.polygons.forEach((polygon) => {
+      mapView.setPolygonHoverColor(polygon, "#F0F0F0");
+    });
+  } else {
+    location.polygons.forEach((polygon) => {
+      mapView.setPolygonHoverColor(polygon, "#BFBFBF");
+    });
+  }
+});
 
-    if (startLocation && endLocation) {
-      // Generate a route between these two locations
-      const directions = startLocation.directionsTo(endLocation);
-      if (directions && directions.path.length > 0) {
-        // The Journey class draws the path & can be configured with a few options
-        mapView.Journey.draw(directions, {
-          polygonHighlightColor: "#e74c3c", // Start and end polygons colour
-          departureMarkerTemplate: (props) => {
-            // The departure marker is the person at the start location
-            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
-            <div class="departure-marker">${
-              props.location ? props.location.name : "Departure"
-            }</div>
-            ${props.icon}
-            </div>`;
-          },
-          destinationMarkerTemplate: (props) => {
-            // The destination marker is the pin at the end location
-            return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
-            <div class="destination-marker">${
-              props.location ? props.location.name : "Destination"
-            }</div>
-            ${props.icon}
-            </div>`;
-          },
-          connectionTemplate: (props) => {
-            // The connection marker is the button to switch floors on the map
-            return `<div class="connection-marker">Take ${props.type} ${props.icon}</div>`;
-          },
-          pathOptions: {
-            nearRadius: 0.25, // The path size in metres at the nearest zoom
-            farRadius: 1, // The path size in metres at the furthest zoom
-            color: "#40A9FF", // Path colour
-            displayArrowsOnPath: false, // Arrow animation on path
-            showPulse: true, // Pulse animation on path
-            pulseIterations: Infinity // How many times to play the pulse animation
-          }
-        });
+mapView.FloatingLabels.labelAllLocations({
+  interactive: true // Make labels interactive
+});
+    /////
 
-        // Set the map (floor level) to start at the beginning of the path
-        mapView.setMap(directions.path[0].map);
+    // Check if the clicked location has the desired name
+    if (clickedLocationName === "ICU Beds 20 - 27") {
+      const startLocation = venue.locations.find(
+        (location) => location.name === "Doctor 5"
+      );
+
+      const endLocation = venue.locations.find(
+        (location) => location.name === "ICU Beds 20 - 27"
+      );
+
+      if (startLocation && endLocation) {
+        const directions = startLocation.directionsTo(endLocation);
+
+        if (directions && directions.path.length > 0) {
+          mapView.Journey.draw(directions, {
+            departureMarkerTemplate: (props) => {
+              return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="departure-marker">${
+                props.location ? props.location.name : "Departure"
+              }</div>
+              ${props.icon}
+              </div>`;
+            },
+            destinationMarkerTemplate: (props) => {
+              return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center;">
+              <div class="destination-marker">${
+                props.location ? props.location.name : "Destination"
+              }</div>
+              ${props.icon}
+              </div>`;
+            },
+            connectionTemplate: (props) => {
+              return `<div class="connection-marker">Take ${props.type} ${props.icon}</div>`;
+            },
+            pathOptions: {
+              nearRadius: 0.25,
+              farRadius: 1,
+              color: "#40A9FF",
+              displayArrowsOnPath: false,
+              showPulse: true,
+              pulseIterations: Infinity
+            }
+          });
+
+          mapView.setMap(directions.path[0].map);
+        }
       }
+
+      // Update the selected map state
+      setSelectedMap(mapView.currentMap);
     }
-    // Update the selected map state
-    setSelectedMap(mapView.currentMap);
-  }, [mapView, venue]);
+  };
 
   // Track the selected map with state, for the UI
   const [selectedMap, setSelectedMap] = useState<MappedinMap | undefined>();
 
-  /* Monitor floor level changes and update the UI */
+  // Monitor floor level changes and update the UI
   useMapChanged(mapView, (map) => {
     setSelectedMap(map);
   });
@@ -109,31 +123,36 @@ export default function NavigationExample() {
     <div id="app">
       <div id="ui">
         {venue?.venue.name ?? "Loading..."}
-        {venue && selectedMap && (
-          <select
-            value={selectedMap.id}
-            onChange={(e) => {
-              if (!mapView || !venue) {
-                return;
-              }
+        {venue &&
+          selectedMap && (
+            <select
+              value={selectedMap.id}
+              onChange={(e) => {
+                if (!mapView || !venue) {
+                  return;
+                }
 
-              const floor = venue.maps.find((map) => map.id === e.target.value);
-              if (floor) {
-                mapView.setMap(floor);
-              }
-            }}
-          >
-            {venue?.maps.map((level, index) => {
-              return (
-                <option value={level.id} key={index}>
-                  {level.name}
-                </option>
-              );
-            })}
-          </select>
-        )}
+                const floor = venue.maps.find((map) => map.id === e.target.value);
+                if (floor) {
+                  mapView.setMap(floor);
+                }
+              }}
+            >
+              {venue?.maps.map((level, index) => {
+                return (
+                  <option value={level.id} key={index}>
+                    {level.name}
+                  </option>
+                );
+              })}
+            </select>
+          )}
       </div>
-      <div id="map-container" ref={elementRef}></div>
+      <div
+        id="map-container"
+        ref={elementRef}
+        onClick={() => handleLocationClick("ICU Beds 20 - 27")}
+      ></div>
     </div>
   );
 }
