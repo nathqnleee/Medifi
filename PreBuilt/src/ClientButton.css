@@ -1,0 +1,11 @@
+.slide-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-button-container img {
+  max-width: 32%;
+  max-height: 75%; /* Adjust the image height as needed */
+  margin: 20px; /* Adjust the margin as needed to create space between images */
+}
