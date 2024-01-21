@@ -5,7 +5,7 @@
 }
 
 .slide-button-container img {
-  max-width: 40%;
-  max-height: 80%; /* Adjust the image height as needed */
-  margin: 5px; /* Adjust the margin as needed to create space between images */
+  max-width: 32%;
+  max-height: 75%; /* Adjust the image height as needed */
+  margin: 20px; /* Adjust the margin as needed to create space between images */
 }

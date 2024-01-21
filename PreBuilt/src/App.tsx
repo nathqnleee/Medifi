@@ -21,10 +21,32 @@ export default function App() {
           {/* Links centered on top */}
           <div className="top-links">
             <Link to="/" className="nav-button">Basic</Link>
-            <Link to="/interactivity" className="nav-button">Interactivity</Link>
             <Link to="/navigation" className="nav-button">Navigation</Link>
             <Link to="/camera" className="nav-button">Camera</Link>
           </div>
+
+          {/* Search bar in the top-right */}
+          <div className="fake-search-bar top-right">Search...</div>
+
+          {/* Sidebar on the bottom-left */}
+          <div className="sidebar bottom-left">
+              <Link to="/" className="sidebar-item highlighted">
+                <strong>Home</strong>
+              </Link>
+              <Link to="/item2" className="sidebar-item">
+              <strong>Navigation</strong>
+              </Link>
+              <Link to="/item3" className="sidebar-item">
+              <strong>Department</strong>
+              </Link>
+              <Link to="/item4" className="sidebar-item">
+              <strong>MDs & RNs</strong>
+              </Link>
+              <Link to="/item5" className="sidebar-item">
+              <strong>Patients</strong>
+              </Link>
+            </div>
+          
           
           {/* Routes centered in the middle */}
           <div className="middle-routes">
@@ -35,12 +57,20 @@ export default function App() {
               <Route path="/camera" element={<Camera />} />
             </Routes>
           </div>
-          
+
+          {/* Button title at the bottom */}
+          {/* <div className="bottom-title">
+          <h2>PATIENTS</h2>
+          </div> */}
+
           {/* Button centered at the bottom */}
           <div className="bottom-button">
-            <h2>PATIENTS</h2>
+          <h2>PATIENTS</h2>
             <ClientButton />
           </div>
+
+          
+
         </div>
       </BrowserRouter>
     </div>
