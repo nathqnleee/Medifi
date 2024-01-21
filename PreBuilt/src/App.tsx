@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Camera from "./Camera";
+import Navigation from "./Navigation";
 import Basic from "./Basic";
 import Interactivity from "./Interactivity";
 import ClientButton from "./ClientButton";
@@ -20,7 +21,7 @@ export default function App() {
           {/* Links centered on top */}
           <div className="top-links">
             <Link to="/" className="nav-button">Basic</Link>
-            <Link to="/navigation" className="nav-button">Navigation</Link>
+            <Link to="/interactivity" className="nav-button">Interactivity</Link>
             <Link to="/camera" className="nav-button">Camera</Link>
           </div>
 
@@ -52,6 +53,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Basic />} />
               <Route path="/interactivity" element={<Interactivity />} />
+              <Route path="/navigation" element={<Navigation />} />
               <Route path="/camera" element={<Camera />} />
             </Routes>
           </div>
@@ -64,7 +66,7 @@ export default function App() {
           {/* Button centered at the bottom */}
           <div className="bottom-button">
           <h2>PATIENTS</h2>
-            <ClientButton />
+            <ClientButton image1Version={undefined} image2Version={undefined} image3Version={undefined} />
           </div>
 
           
