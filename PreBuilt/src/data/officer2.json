@@ -1,0 +1,303 @@
+[
+    {
+      "timestamp": 1583957906820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45247829885708,
+        "longitude": -80.51095118721365,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957907820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452442800902645,
+        "longitude": -80.51092883375243,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957908820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45241764843158,
+        "longitude": -80.51100462706152,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957909820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45236440151391,
+        "longitude": -80.5109710968661,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957910820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452340871758324,
+        "longitude": -80.51104200017784,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957911820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452330323922624,
+        "longitude": -80.51107378440312,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957912820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452302737233815,
+        "longitude": -80.51115691232451,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957913820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.4522861040541,
+        "longitude": -80.51120703353459,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957914820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45227596186061,
+        "longitude": -80.51123759523453,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957915820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45226460259424,
+        "longitude": -80.51127182432629,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957916820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45223797917567,
+        "longitude": -80.51125505914598,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957917820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45222244884703,
+        "longitude": -80.51124527946432,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957918820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45220958085982,
+        "longitude": -80.51123717630327,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957919820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45217763275116,
+        "longitude": -80.5112170581253,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957920820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45216520848574,
+        "longitude": -80.51120923439515,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957921820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452147459534196,
+        "longitude": -80.5111980576434,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957922820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45209510012081,
+        "longitude": -80.51116508626389,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957923820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45208374087608,
+        "longitude": -80.51119931526691,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957924820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452071570245366,
+        "longitude": -80.51123598918444,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957925820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452061833732365,
+        "longitude": -80.51126532830784,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957926820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.452038760102255,
+        "longitude": -80.51125079853524,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957927820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45198285091397,
+        "longitude": -80.51121559182458,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957928820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45197149165416,
+        "longitude": -80.51124982075459,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957929820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45196581202042,
+        "longitude": -80.51126693521476,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957930820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45195850963044,
+        "longitude": -80.51128893951598,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957931820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.451949584481405,
+        "longitude": -80.5113158336547,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957932820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45190901554271,
+        "longitude": -80.51143807963975,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957933820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45189481639939,
+        "longitude": -80.51142913822197,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957934820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45188416704145,
+        "longitude": -80.51142243216137,
+        "floorLevel": 0
+      },
+      "type": 0
+    },
+    {
+      "timestamp": 1583957935820,
+      "coords": {
+        "accuracy": 5,
+        "latitude": 43.45189714911067,
+        "longitude": -80.5113833134767,
+        "floorLevel": 0
+      },
+      "type": 0
+    }
+  ]
+  
